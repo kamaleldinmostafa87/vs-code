@@ -24,6 +24,10 @@ export const fileStructure: IFile = {
           name: "index.css",
           isFolder: false,
         },
+        {
+          name: "index.tos",
+          isFolder: false,
+        },
       ],
     },
   ],

@@ -5,11 +5,10 @@ interface IconImageProps {
 
 function IconImage({ src }: IconImageProps) {
   // function IconImage() {
-  console.log("src");
 
   return (
     <>
-      <img src={src} className="w-5" alt="icon" />
+      <img src={src} className="w-10" alt="icon" />
     </>
   );
 }

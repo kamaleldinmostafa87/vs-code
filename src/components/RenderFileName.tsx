@@ -3,6 +3,7 @@ import reactIcon from "./../assets/react.svg";
 import typeScriptIcon from "./../assets/typescript-svgrepo-com.svg";
 import openedFolder from "./../assets/opened-folder.svg";
 import closedFolder from "./../assets/closed-folder.svg";
+import fileIcon from "./../assets/fileIcon.svg";
 
 function RenderFileName({
   fileName,
@@ -15,55 +16,53 @@ function RenderFileName({
 }) {
   const extenstion = fileName.split(".").pop();
 
-  console.log("extension", extenstion);
+  const extensionPathes: Record<string, string> = {
+    // ** files
+    ts: typeScriptIcon,
+    jsx: reactIcon,
+    tsx: reactIcon,
+    html: fileIcon,
+    css: fileIcon,
+    // ** folders
+    openedFolder: openedFolder,
+    closedFolder: closedFolder,
+  };
 
-  if (extenstion === "tsx" && !isFolder)
+  if (extenstion && extensionPathes.hasOwnProperty(extenstion)) {
+    const iconPath = isFolder
+      ? open
+        ? `${extensionPathes["openedFolder"]}`
+        : `${extensionPathes["closedFolder"]}`
+      : `${extensionPathes[extenstion]}`;
+
     return (
       <>
-        <IconImage src={reactIcon} /> {fileName}
+        <IconImage src={iconPath} /> {fileName}
       </>
     );
+  }
 
-  if (extenstion === "ts" && !isFolder)
-    return (
-      <>
-        <IconImage src={typeScriptIcon} /> {fileName}
-      </>
-    );
-
-  if (extenstion === "node_modules" && isFolder && open)
+  if (isFolder && open) {
     return (
       <>
         <IconImage src={openedFolder} /> {fileName}
       </>
     );
+  }
 
-  if (isFolder && open)
+  if (isFolder && !open) {
     return (
       <>
-        <IconImage src={openedFolder} /> {fileName}
+        <IconImage src={closedFolder} /> {fileName}
       </>
     );
+  }
 
-  if (isFolder && !open) return;
   return (
     <>
-      <IconImage src={closedFolder} /> {fileName}
+      <IconImage src={fileIcon} />
     </>
   );
-
-  // return (
-  //   <>
-  //     {fileName}
-  //     <img src="./react.svg" alt="icon" />;
-  //   </>
-  // );
-
-  // return (
-  //   <div>
-  //     {extenstion} {fileName}
-  //   </div>
-  // );
 }
 
 export default RenderFileName;

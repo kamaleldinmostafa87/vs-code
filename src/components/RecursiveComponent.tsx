@@ -1,8 +1,6 @@
 import { useState } from "react";
-import FileIcon from "./SVG/FileIcon";
 import RightIcon from "./SVG/RightIcon";
 import { IFile } from "../interfaces/fileTree";
-import FolderIcon from "./SVG/FolderIcon";
 import BottomIcon from "./SVG/BottomIcon";
 import RenderFileName from "./RenderFileName";
 
