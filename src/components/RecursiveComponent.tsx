@@ -10,7 +10,9 @@ type Props = {
   fileTree: IFile;
 };
 
-export default function RecursiveComponent({ fileTree }: Props) {
+export default function RecursiveComponent({
+  fileTree: { name, isFolder, children },
+}: Props) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -22,26 +24,28 @@ export default function RecursiveComponent({ fileTree }: Props) {
             setOpen(!open);
           }}
         >
-          {fileTree.isFolder ? (
+          {isFolder ? (
             <>
               <span className="flex">
                 {open ? <BottomIcon /> : <RightIcon />}
-                <FolderIcon />
-                <RenderFileName fileName={fileTree.name} />
+                <RenderFileName
+                  fileName={name}
+                  isFolder={isFolder}
+                  open={open}
+                />
               </span>
             </>
           ) : (
             <div className="flex">
-              <FileIcon />
-              <RenderFileName fileName={fileTree.name} />
+              <RenderFileName fileName={name} isFolder={isFolder} open={open} />
             </div>
           )}
         </span>
       </div>
 
       {open &&
-        fileTree.children &&
-        fileTree.children?.map((file, idx) => (
+        children &&
+        children?.map((file, idx) => (
           <RecursiveComponent key={idx} fileTree={file} />
         ))}
     </div>

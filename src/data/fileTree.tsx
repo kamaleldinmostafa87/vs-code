@@ -9,6 +9,10 @@ export const fileStructure: IFile = {
       isFolder: false,
     },
     {
+      name: "component.ts",
+      isFolder: false,
+    },
+    {
       name: "pages",
       isFolder: true,
       children: [
