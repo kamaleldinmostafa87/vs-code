@@ -61,6 +61,7 @@ function RenderFileName({
   return (
     <>
       <IconImage src={fileIcon} />
+      {fileName}
     </>
   );
 }
