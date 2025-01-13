@@ -1,12 +1,15 @@
 import { useState } from "react";
-import RightIcon from "./SVG/RightIcon";
-import { IFile } from "../interfaces/fileTree";
-import BottomIcon from "./SVG/BottomIcon";
-import RenderFileName from "./RenderFileName";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  setClickedFileAction,
+  setOpenedFileAction,
+} from "../app/features/fileTreeSlice";
 import { RootState } from "../app/store";
-import { setOpenedFile } from "../app/features/fileTreeSlice";
+import { IFile } from "../interfaces/fileTree";
 import { doesOjectExists } from "../utils/functions";
+import RenderFileName from "./RenderFileName";
+import BottomIcon from "./SVG/BottomIcon";
+import RightIcon from "./SVG/RightIcon";
 
 type Props = {
   fileTree: IFile;
@@ -14,17 +17,30 @@ type Props = {
 
 export default function RecursiveComponent({ fileTree }: Props) {
   //useSelector to get the store
-  const { openedFile } = useSelector((state: RootState) => state.tree);
+  const { clickedFile, openedFile } = useSelector(
+    (state: RootState) => state.tree
+  );
 
   const dispatch = useDispatch();
-  const { name, isFolder, children } = fileTree;
+  const { name, isFolder, children, id } = fileTree;
   const [open, setOpen] = useState(false);
 
   const handleOpenFile = () => {
     // get the id of the selected file then compare it with the id that exists in the openedFile
+    dispatch(
+      setClickedFileAction({
+        name,
+        content: "",
+        active: false,
+        activeTabId: id,
+      })
+    );
+
     if (doesOjectExists(openedFile, fileTree.id)) return;
-    dispatch(setOpenedFile([...openedFile, fileTree]));
+    dispatch(setOpenedFileAction([...openedFile, fileTree]));
+    // dispatch(setActiveTabIdAction(id));
   };
+
   return (
     <div className="ml-4">
       <div className="flex justify-start">

@@ -11,8 +11,8 @@ function RenderFileName({
   isFolder,
 }: {
   fileName: string;
-  open: boolean;
-  isFolder: boolean;
+  open?: boolean;
+  isFolder?: boolean;
 }) {
   const extenstion = fileName.split(".").pop();
 
@@ -58,12 +58,12 @@ function RenderFileName({
     );
   }
 
-  return (
-    <>
-      <IconImage src={fileIcon} />
-      {fileName}
-    </>
-  );
+  // return (
+  //   <>
+  //     <IconImage src={fileIcon} />
+  //     {fileName}
+  //   </>
+  // );
 }
 
 export default RenderFileName;
