@@ -5,8 +5,9 @@ import BottomIcon from "./SVG/BottomIcon";
 import RenderFileName from "./RenderFileName";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";
-import { setOpenedFile } from "../app/features/fileTreeSlice";
+import { setOpenedFileAction } from "../app/features/fileTreeSlice";
 import { doesOjectExists } from "../utils/functions";
+import FolderComponent from "./FolderComponent";
 
 type Props = {
   fileTree: IFile;
@@ -14,7 +15,9 @@ type Props = {
 
 export default function RecursiveComponent({ fileTree }: Props) {
   //useSelector to get the store
-  const { openedFile } = useSelector((state: RootState) => state.tree);
+  const { clickedFile, openedFile } = useSelector(
+    (state: RootState) => state.tree
+  );
 
   const dispatch = useDispatch();
   const { name, isFolder, children } = fileTree;
@@ -23,8 +26,10 @@ export default function RecursiveComponent({ fileTree }: Props) {
   const handleOpenFile = () => {
     // get the id of the selected file then compare it with the id that exists in the openedFile
     if (doesOjectExists(openedFile, fileTree.id)) return;
-    dispatch(setOpenedFile([...openedFile, fileTree]));
+    dispatch(setOpenedFileAction([...openedFile, fileTree]));
+    // console.log("fileTree", fileTree.name);
   };
+
   return (
     <div className="ml-4">
       <div className="flex justify-start">

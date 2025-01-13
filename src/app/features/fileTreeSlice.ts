@@ -3,7 +3,7 @@ import { IFile } from "../../interfaces/fileTree";
 
 interface IClickedFile {
   name: string;
-  content: string;
+  content: string | undefined;
 }
 
 interface initialState {
@@ -29,18 +29,23 @@ export const fileTreeSlice = createSlice({
     // which detects changes to a "draft state" and produces a brand new
     // immutable state based off those changes
 
-    setOpenedFile: (state, action: PayloadAction<IFile[]>) => {
+    setOpenedFileAction: (state, action: PayloadAction<IFile[]>) => {
       // action is storing the payload that comming from the setOpenedFile paramater
-      console.log(action.payload);
 
       // if(action.payload.)
       // const repeatedClickedFile = [...new Set(action.payload)];
       state.openedFile = action.payload;
     },
+
+    setClickedFileAction: (state, action: PayloadAction<IClickedFile>) => {
+      state.clickedFile.name = action.payload.name;
+      state.clickedFile.content = action.payload.content;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setOpenedFile } = fileTreeSlice.actions;
+export const { setOpenedFileAction, setClickedFileAction } =
+  fileTreeSlice.actions;
 
 export default fileTreeSlice.reducer;

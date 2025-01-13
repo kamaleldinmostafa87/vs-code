@@ -10,11 +10,13 @@ export const fileStructure: IFile = {
       id: uuid(),
       name: "index.tsx",
       isFolder: false,
+      content: "",
     },
     {
       id: uuid(),
       name: "component.ts",
       isFolder: false,
+      content: "",
     },
     {
       id: uuid(),
@@ -25,16 +27,19 @@ export const fileStructure: IFile = {
           id: uuid(),
           name: "index.html",
           isFolder: false,
+          content: "html file ",
         },
         {
           id: uuid(),
           name: "index.css",
           isFolder: false,
+          content: "css file",
         },
         {
           id: uuid(),
           name: "index.tos",
           isFolder: false,
+          content: "tos file",
         },
       ],
     },

@@ -3,7 +3,8 @@ import { fileTreeSlice } from "./features/fileTreeSlice";
 
 export const store = configureStore({
   reducer: {
-    tree: fileTreeSlice.getInitialState,
+    // error here "fileTreeSlice.getInitialState()" it is wrong syntax
+    tree: fileTreeSlice.reducer,
   },
 });
 
