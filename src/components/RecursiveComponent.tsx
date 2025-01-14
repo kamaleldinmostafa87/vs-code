@@ -20,6 +20,9 @@ export default function RecursiveComponent({ fileTree }: Props) {
   const { clickedFile, openedFile } = useSelector(
     (state: RootState) => state.tree
   );
+  const { clickedFile, openedFile } = useSelector(
+    (state: RootState) => state.tree
+  );
 
   const dispatch = useDispatch();
   const { name, isFolder, children, id } = fileTree;

@@ -1,4 +1,4 @@
-import OpendFileBar from "./components/OpendFilesBar";
+import OpendFileBar from "./components/OpendFileBar";
 import RecursiveComponent from "./components/RecursiveComponent";
 import { fileStructure } from "./data/fileTree";
 import "./index.css";
