@@ -8,8 +8,8 @@ import { RootState } from "../app/store";
 import { IFile } from "../interfaces/fileTree";
 import { doesOjectExists } from "../utils/functions";
 import RenderFileName from "./RenderFileName";
-import BottomIcon from "./SVG/BottomIcon";
-import RightIcon from "./SVG/RightIcon";
+import ClosedArrowIcon from "./SVG/closedArrowIcon";
+import OpenedArrowIcon from "./SVG/OpenedArrowIcon";
 
 type Props = {
   fileTree: IFile;
@@ -17,9 +17,6 @@ type Props = {
 
 export default function RecursiveComponent({ fileTree }: Props) {
   //useSelector to get the store
-  const { clickedFile, openedFile } = useSelector(
-    (state: RootState) => state.tree
-  );
   const { clickedFile, openedFile } = useSelector(
     (state: RootState) => state.tree
   );
@@ -54,13 +51,13 @@ export default function RecursiveComponent({ fileTree }: Props) {
           }}
         >
           {isFolder ? (
-            <span className="flex">
-              {open ? <BottomIcon /> : <RightIcon />}
+            <span className="flex items-center gap-1">
+              {open ? <ClosedArrowIcon /> : <OpenedArrowIcon />}
               <RenderFileName fileName={name} isFolder={isFolder} open={open} />
             </span>
           ) : (
             <div
-              className="flex"
+              className="flex items-center gap-2"
               // use dispatch to call the reducer setOpenedFile
               onClick={handleOpenFile}
             >

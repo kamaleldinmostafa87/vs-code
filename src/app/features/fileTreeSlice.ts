@@ -3,7 +3,7 @@ import { IFile } from "../../interfaces/fileTree";
 
 interface IClickedFile {
   name: string;
-  content: string;
+  content: string | undefined;
   active: boolean | undefined;
   activeTabId: string;
 }

@@ -1,9 +1,9 @@
-export default function RightIcon() {
+export default function OpenedArrowIcon() {
   return (
     <svg
-      fill="red"
-      height="20"
-      width="20"
+      fill="white"
+      height="10"
+      width="10"
       version="1.1"
       id="Layer_1"
       xmlns="http://www.w3.org/2000/svg"

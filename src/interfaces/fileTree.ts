@@ -3,6 +3,6 @@ export interface IFile {
   name: string;
   isFolder: boolean;
   children?: IFile[];
-  active?: boolean;
-  content?: string;
+  active?: boolean | undefined;
+  content?: string | undefined;
 }
