@@ -27,7 +27,16 @@ function FolderComponent({ file }: Props) {
 
   const handleCloseFile = (e: any) => {
     e.stopPropagation();
+
     const newOpenedFile = openedFile.filter((file) => file.id !== activeTabId);
+    // here empty array
+
+    console.log("new opened file", newOpenedFile);
+
+    if (newOpenedFile.length === 0) {
+      dispatch(setOpenedFileAction([]));
+      return;
+    }
 
     // if (newOpenedFile.length === 1) return;
     const { id, name, content } = newOpenedFile[newOpenedFile.length - 1];
