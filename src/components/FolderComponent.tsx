@@ -7,6 +7,8 @@ import { IFile } from "../interfaces/fileTree";
 import FolderIcon from "./SVG/FolderIcon";
 import CloseIcon from "./SVG/CloseIcon";
 import { RootState } from "../app/store";
+import { useState } from "react";
+import DropMenu from "./DropMenu";
 
 type Props = {
   file: IFile;
@@ -19,6 +21,7 @@ function FolderComponent({ file }: Props) {
     clickedFile: { activeTabId },
   } = useSelector((state: RootState) => state.tree);
   const { name, content, id } = file;
+
   const handleOnClick = () => {
     dispatch(
       setClickedFileAction({ name, content, activeTabId: id, active: false })
@@ -27,14 +30,12 @@ function FolderComponent({ file }: Props) {
 
   const handleCloseFile = (e: any) => {
     e.stopPropagation();
-
     const newOpenedFile = openedFile.filter((file) => file.id !== activeTabId);
     // here empty array
-
     console.log("new opened file", newOpenedFile);
-
     if (newOpenedFile.length === 0) {
       dispatch(setOpenedFileAction([]));
+      dispatch(setClickedFileAction({ name: "", content: "", active: false }));
       return;
     }
 

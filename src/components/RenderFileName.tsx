@@ -1,9 +1,11 @@
 import IconImage from "./IconImage";
-import reactIcon from "./../assets/react.svg";
+// import reactIcon from "./../assets/react.svg";
+
 import typeScriptIcon from "./../assets/typescript-svgrepo-com.svg";
 import openedFolder from "./../assets/opened-folder.svg";
 import closedFolder from "./../assets/closed-folder.svg";
 import fileIcon from "./../assets/fileIcon.svg";
+import ReactIcon from "./SVG/ReactIcon.svg";
 
 function RenderFileName({
   fileName,
@@ -19,8 +21,8 @@ function RenderFileName({
   const extensionPathes: Record<string, string> = {
     // ** files
     ts: typeScriptIcon,
-    jsx: reactIcon,
-    tsx: reactIcon,
+    jsx: ReactIcon as any,
+    tsx: ReactIcon as any,
     html: fileIcon,
     css: fileIcon,
     // ** folders

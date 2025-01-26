@@ -4,6 +4,8 @@ import { IFile } from "../interfaces/fileTree";
 import FolderIcon from "./SVG/FolderIcon";
 import { RootState } from "../app/store";
 import Highlight from "./Highlight";
+import DropMenu from "./DropMenu";
+import { useState } from "react";
 
 type Props = {
   file: IFile;
@@ -12,6 +14,7 @@ function OpenedFileBarTab({ file }: Props) {
   const {
     clickedFile: { activeTabId },
   } = useSelector((state: RootState) => state.tree);
+
   const dispatch = useDispatch();
   const { name, content, active, id } = file;
   const handleOnClick = () => {
@@ -33,6 +36,7 @@ function OpenedFileBarTab({ file }: Props) {
         </span>
         <span> {name}</span>
       </div>
+
       {/* <Highlight content={file.content} /> */}
     </div>
   );

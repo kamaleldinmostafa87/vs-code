@@ -1,11 +1,12 @@
 interface IconImageProps {
   src: string;
+  className?: string;
 }
 
-function IconImage({ src }: IconImageProps) {
+function IconImage({ src, className = "w-5" }: IconImageProps) {
   return (
     <>
-      <img src={src} className="w-5" alt="icon" />
+      <img src={src} className={className} alt="icon" />
     </>
   );
 }
