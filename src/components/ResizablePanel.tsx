@@ -7,7 +7,7 @@ interface IProps {
 }
 
 export default function ResizablePanel({
-  defaultLayout = [33, 67],
+  defaultLayout = [20, 80],
   rightContent,
   leftContent,
 }: IProps) {
@@ -19,7 +19,7 @@ export default function ResizablePanel({
     <PanelGroup autoSaveId="example" direction="horizontal" onLayout={onLayout}>
       <Panel defaultSize={defaultLayout[0]}>{leftContent}</Panel>
       <PanelResizeHandle className=" border-r border-gray-600" />
-      <Panel defaultSize={defaultLayout[0]}>{rightContent}</Panel>
+      <Panel defaultSize={defaultLayout[1]}>{rightContent}</Panel>
     </PanelGroup>
   );
 }

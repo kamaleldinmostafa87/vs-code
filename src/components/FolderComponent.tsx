@@ -2,13 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setClickedFileAction,
   setOpenedFileAction,
+  setTabIdToRemoveAction,
 } from "../app/features/fileTreeSlice";
-import { IFile } from "../interfaces/fileTree";
-import FolderIcon from "./SVG/FolderIcon";
-import CloseIcon from "./SVG/CloseIcon";
 import { RootState } from "../app/store";
+import { IFile } from "../interfaces/fileTree";
+import CloseIcon from "./SVG/CloseIcon";
+import FolderIcon from "./SVG/FolderIcon";
 import { useState } from "react";
-import DropMenu from "./DropMenu";
+import ContextMenu from "./ContextMenu";
 
 type Props = {
   file: IFile;
@@ -24,7 +25,7 @@ function FolderComponent({ file }: Props) {
 
   const handleOnClick = () => {
     dispatch(
-      setClickedFileAction({ name, content, activeTabId: id, active: false })
+      setClickedFileAction({ name, content, active: false, activeTabId: id })
     );
   };
 
@@ -32,14 +33,18 @@ function FolderComponent({ file }: Props) {
     e.stopPropagation();
     const newOpenedFile = openedFile.filter((file) => file.id !== activeTabId);
     // here empty array
-    console.log("new opened file", newOpenedFile);
     if (newOpenedFile.length === 0) {
       dispatch(setOpenedFileAction([]));
-      dispatch(setClickedFileAction({ name: "", content: "", active: false }));
+      dispatch(
+        setClickedFileAction({
+          name: "",
+          content: "",
+          active: false,
+          activeTabId: "",
+        })
+      );
       return;
     }
-
-    // if (newOpenedFile.length === 1) return;
     const { id, name, content } = newOpenedFile[newOpenedFile.length - 1];
 
     dispatch(setOpenedFileAction(newOpenedFile));
@@ -52,9 +57,22 @@ function FolderComponent({ file }: Props) {
       })
     );
   };
+
+  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
+  const [showMenu, setShowMenu] = useState(false);
+
   return (
-    <div className="flex flex-col">
+    <div
+      className="flex flex-col"
+      onContextMenu={(e) => {
+        e.preventDefault();
+        setMenuPosition({ x: e.clientX, y: e.clientY });
+        setShowMenu(true);
+        dispatch(setTabIdToRemoveAction(file.id));
+      }}
+    >
       <div
+        tab-data-id={id}
         className={`flex items-center justify-center border-t ${
           activeTabId === file.id ? "  border-red-400" : "   border-transparent"
         } `}
@@ -71,6 +89,10 @@ function FolderComponent({ file }: Props) {
           <CloseIcon />
         </span>
       </div>
+
+      {showMenu && (
+        <ContextMenu position={menuPosition} setShowMenu={setShowMenu} />
+      )}
       {/* <div>{content}</div> */}
     </div>
   );

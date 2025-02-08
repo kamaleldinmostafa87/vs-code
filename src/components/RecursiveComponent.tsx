@@ -8,7 +8,7 @@ import { RootState } from "../app/store";
 import { IFile } from "../interfaces/fileTree";
 import { doesOjectExists } from "../utils/functions";
 import RenderFileName from "./RenderFileName";
-import ClosedArrowIcon from "./SVG/closedArrowIcon";
+import ClosedArrowIcon from "./SVG/ClosedArrowIcon";
 import OpenedArrowIcon from "./SVG/OpenedArrowIcon";
 
 type Props = {
@@ -17,12 +17,10 @@ type Props = {
 
 export default function RecursiveComponent({ fileTree }: Props) {
   //useSelector to get the store
-  const { clickedFile, openedFile } = useSelector(
-    (state: RootState) => state.tree
-  );
+  const { openedFile } = useSelector((state: RootState) => state.tree);
 
   const dispatch = useDispatch();
-  const { name, isFolder, children, id } = fileTree;
+  const { name, isFolder, children, id, content } = fileTree;
   const [open, setOpen] = useState(false);
 
   const handleOpenFile = () => {
@@ -30,15 +28,14 @@ export default function RecursiveComponent({ fileTree }: Props) {
     dispatch(
       setClickedFileAction({
         name,
-        content: "",
-        active: false,
+        content,
+        active: true,
         activeTabId: id,
       })
     );
 
     if (doesOjectExists(openedFile, fileTree.id)) return;
     dispatch(setOpenedFileAction([...openedFile, fileTree]));
-    // dispatch(setActiveTabIdAction(id));
   };
 
   return (

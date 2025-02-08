@@ -1,26 +1,28 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../app/store";
+import DropMenu from "./ContextMenu";
 import FolderComponent from "./FolderComponent";
 import Highlight from "./Highlight";
-import DropMenu from "./DropMenu";
-import { useState } from "react";
+
+// type FolderComponentType = React.ComponentType<{ file?: any }>;
+// // type HighlightType = React.ComponentType<{ content: string | undefined }>;
+// // type DropMenuType = React.ComponentType<{ position: { x: number; y: number } }>;
+
+// const [FolderComponent, Highlight, DropMenu]: any = [
+//   "FolderComponent",
+//   "Highlight",
+//   "DropMenu",
+// ].map((component) => React.lazy(() => import(`./${component}.tsx`)));
 
 export default function OpendFileBar() {
   const { openedFile, clickedFile } = useSelector(
     (state: RootState) => state.tree
   );
 
-  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
-  const [showMenu, setShowMenu] = useState(false);
   return (
-    <div
-      className=""
-      onContextMenu={(e) => {
-        e.preventDefault();
-        setMenuPosition({ x: e.clientX, y: e.clientY });
-        setShowMenu(true);
-      }}
-    >
+    // <Suspense fallback={<div>Loading...</div>}>
+    <div className="">
       <ul className="flex items-start">
         {openedFile.map((file, idx) => (
           <>
@@ -33,9 +35,9 @@ export default function OpendFileBar() {
           </>
         ))}
       </ul>
-      {showMenu && <DropMenu position={menuPosition} />}
 
       <Highlight content={clickedFile.content} />
     </div>
+    // </Suspense>
   );
 }

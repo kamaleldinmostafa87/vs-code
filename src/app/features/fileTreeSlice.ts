@@ -11,6 +11,7 @@ interface IClickedFile {
 interface initialState {
   openedFile: IFile[];
   clickedFile: IClickedFile;
+  tabIdToRemove: string | null;
 }
 
 const initialState: initialState = {
@@ -21,6 +22,7 @@ const initialState: initialState = {
     active: false,
     activeTabId: "",
   },
+  tabIdToRemove: null,
 };
 
 export const fileTreeSlice = createSlice({
@@ -35,9 +37,6 @@ export const fileTreeSlice = createSlice({
 
     setOpenedFileAction: (state, action: PayloadAction<IFile[]>) => {
       // action is storing the payload that comming from the setOpenedFile paramater
-
-      // if(action.payload.)
-      // const repeatedClickedFile = [...new Set(action.payload)];
       state.openedFile = action.payload;
     },
 
@@ -47,11 +46,17 @@ export const fileTreeSlice = createSlice({
       state.clickedFile.active = action.payload.active;
       state.clickedFile.activeTabId = action.payload.activeTabId;
     },
+    setTabIdToRemoveAction: (state, action: PayloadAction<string | null>) => {
+      state.tabIdToRemove = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setOpenedFileAction, setClickedFileAction } =
-  fileTreeSlice.actions;
+export const {
+  setOpenedFileAction,
+  setClickedFileAction,
+  setTabIdToRemoveAction,
+} = fileTreeSlice.actions;
 
 export default fileTreeSlice.reducer;

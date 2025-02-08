@@ -1,11 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setClickedFileAction } from "../app/features/fileTreeSlice";
+import { RootState } from "../app/store";
 import { IFile } from "../interfaces/fileTree";
 import FolderIcon from "./SVG/FolderIcon";
-import { RootState } from "../app/store";
-import Highlight from "./Highlight";
-import DropMenu from "./DropMenu";
-import { useState } from "react";
 
 type Props = {
   file: IFile;
@@ -13,11 +10,13 @@ type Props = {
 function OpenedFileBarTab({ file }: Props) {
   const {
     clickedFile: { activeTabId },
+    // openedFile,
   } = useSelector((state: RootState) => state.tree);
 
   const dispatch = useDispatch();
   const { name, content, active, id } = file;
   const handleOnClick = () => {
+    // dispatch(setOpenedFileAction([...openedFile, file]));
     dispatch(setClickedFileAction({ name, content, active, activeTabId: id }));
     //opened the file
     //opened is true
@@ -36,8 +35,6 @@ function OpenedFileBarTab({ file }: Props) {
         </span>
         <span> {name}</span>
       </div>
-
-      {/* <Highlight content={file.content} /> */}
     </div>
   );
 }
